@@ -1,5 +1,4 @@
 --[[
-
 ########################
 #                      #
 #     Walter White     #
@@ -9,7 +8,6 @@
 #         2018         #
 #                      #
 ########################
-
 --]]
 
 local DrawMarkerShow = false  -- true = Marqueur activé / false = Marqueur desactivé
