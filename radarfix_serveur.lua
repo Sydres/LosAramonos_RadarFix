@@ -1,5 +1,4 @@
 --[[
-
 ########################
 #                      #
 #     Walter White     #
@@ -9,7 +8,6 @@
 #         2018         #
 #                      #
 ########################
-
 --]]
 
 RegisterServerEvent('paiement:radarcentreville')
