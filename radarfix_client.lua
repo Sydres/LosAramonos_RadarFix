@@ -1,152 +1,168 @@
 --[[
+
 ########################
 #                      #
 #     Walter White     #
 #                      #
-#     Irtas Momaki     #
 #                      #
 #         2018         #
 #                      #
+#                      #
 ########################
+
 --]]
 
-local DrawMarkerShow = false  -- true = Marqueur activé / false = Marqueur desactivé
-local DrawBlipTradeShow = false  -- true = Blip activé / false = Blip desactivé
-local prixautoroute = 500  -- Prix par contravention lors d'un flash sur l'autoroute 
-local prixcentreville = 500  -- Prix par contravention lors d'un flash en centre ville
-local vitessemaxcentreville = 70  -- Reglage a partir de quelle vitesse les radars du centre ville vont flasher en km/h
-local vitessemaxautoroute = 140  -- Reglage a partir de quelle vitesse les radars des autoroutes vont flasher en km/h
-
+function Radar()
   local player = GetPlayerPed(-1)
   local vitesse = GetEntitySpeed(player)
   local vehicule = GetVehiclePedIsIn(player)
   local conducteur = GetPedInVehicleSeat(vehicule, -1)
   local plaque = GetVehicleNumberPlateText(vehicule)
   local kmhspeed = math.ceil(vitesse*3.6)
-  local secours_hash = GetHashKey("policet") or GetHashKey("fbi") or GetHashKey("ambulance") or GetHashKey("fbi2") or GetHashKey("firetruk") or 
-                       GetHashKey("lguard") or GetHashKey("pbus") or GetHashKey("police") or GetHashKey("police2") or GetHashKey("police3") or 
-                       GetHashKey("police4") or GetHashKey("policeold1") or GetHashKey("policeold2") or GetHashKey("pranger") or GetHashKey("riot") or 
-                       GetHashKey("sheriff") or GetHashKey("sheriff2") or GetHashKey("policeb") 
-
-  local voiture_exonerer = IsVehicleModel(vehicule, secours_hash)
-
-
-
-local radarcentreville = {
-Position={x = 218.90957641602, y = -1036.5207519531, z = 29.360637664795}, --Radar au croisement de la banque centrale (Strawberry Avenue & Vespucci Boulevard)
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
-}
-
-local radarautoroute = {
-Position={x = 218.90957641602, y = -1034.5207519531, z = 29.360637664795}, --Radar au croisement de la banque centrale (Strawberry Avenue & Vespucci Boulevard)
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
---Position={x = 0.0, y = 0.0, z = 0.0},
-}
-
-function RadarCentreVille()
-
-    if kmhspeed >= vitessemaxcentreville and conducteur == player and not voiture_exonerer then
-      TriggerServerEvent('paiement:radarcentreville', prixcentreville)
-      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)  -- Le fichier son est fournis avec la ressource il vous suffit de l'ajouter a votre script qui gere les sons de votre serveur
-      Citizen.Wait(1000)
+  local police_hash1 = GetHashKey("ambulance")
+  local police_hash2 = GetHashKey("policet")
+  local police_hash3 = GetHashKey("fbi")
+  local police_hash4 = GetHashKey("fbi2")
+  local police_hash5 = GetHashKey("firetruk")
+  local police_hash6 = GetHashKey("lguard")
+  local police_hash7 = GetHashKey("pbus")
+  local police_hash8 = GetHashKey("police")
+  local police_hash9 = GetHashKey("police2")
+  local police_hash10 = GetHashKey("police3")
+  local police_hash11 = GetHashKey("police4")
+  local police_hash12 = GetHashKey("policeold1")
+  local police_hash13 = GetHashKey("policeold2")
+  local police_hash14 = GetHashKey("pranger")
+  local police_hash15 = GetHashKey("riot")
+  local police_hash16 = GetHashKey("sheriff")
+  local police_hash17 = GetHashKey("sheriff2")
+  local police_hash18 = GetHashKey("policeb")
+  local voiture_exonerer1 = IsVehicleModel(vehicule, police_hash1)
+  local voiture_exonerer2 = IsVehicleModel(vehicule, police_hash2)
+  local voiture_exonerer3 = IsVehicleModel(vehicule, police_hash3)
+  local voiture_exonerer4 = IsVehicleModel(vehicule, police_hash4)
+  local voiture_exonerer5 = IsVehicleModel(vehicule, police_hash5)
+  local voiture_exonerer6 = IsVehicleModel(vehicule, police_hash6)
+  local voiture_exonerer7 = IsVehicleModel(vehicule, police_hash7)
+  local voiture_exonerer8 = IsVehicleModel(vehicule, police_hash8)
+  local voiture_exonerer9 = IsVehicleModel(vehicule, police_hash9)
+  local voiture_exonerer10 = IsVehicleModel(vehicule, police_hash10)
+  local voiture_exonerer11 = IsVehicleModel(vehicule, police_hash11)
+  local voiture_exonerer12 = IsVehicleModel(vehicule, police_hash12)
+  local voiture_exonerer13 = IsVehicleModel(vehicule, police_hash13)
+  local voiture_exonerer14 = IsVehicleModel(vehicule, police_hash14)
+  local voiture_exonerer15 = IsVehicleModel(vehicule, police_hash15)
+  local voiture_exonerer16 = IsVehicleModel(vehicule, police_hash16)
+  local voiture_exonerer17 = IsVehicleModel(vehicule, police_hash17)
+  local voiture_exonerer18 = IsVehicleModel(vehicule, police_hash18)
+ 
+    if kmhspeed >= vitessemax and conducteur == player and not voiture_exonerer1 and not voiture_exonerer2 and not voiture_exonerer3 and not voiture_exonerer4 and not voiture_exonerer5 and not voiture_exonerer6 and not voiture_exonerer7 and not voiture_exonerer8 and not voiture_exonerer9 and not voiture_exonerer10 and not voiture_exonerer11 and not voiture_exonerer12 and not voiture_exonerer13 and not voiture_exonerer14 and not voiture_exonerer15 and not voiture_exonerer16 and not voiture_exonerer17 and not voiture_exonerer18 then
+      TriggerServerEvent('paiement:radar', prixcontravention)
+      Wait(1000)
+      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
       TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Contravention de : ~r~ 500~s~ $\nRetrait de : ~r~1~s~ points")
-    else 
-      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)  -- Le fichier son est fournis avec la ressource il vous suffit de l'ajouter a votre script qui gere les sons de votre serveur
-      Citizen.Wait(1000)
+      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Contravention de : ~r~"..prixcontravention.."~s~ $\nRetrait de : ~r~1~s~ points")
+    end
+    if kmhspeed >= vitessemax and voiture_exonerer1 or voiture_exonerer2 or voiture_exonerer3 or voiture_exonerer4 or voiture_exonerer5 or voiture_exonerer6 or voiture_exonerer7 or voiture_exonerer8 or voiture_exonerer9 or voiture_exonerer10 or voiture_exonerer11 or voiture_exonerer12 or voiture_exonerer13 or voiture_exonerer14 or voiture_exonerer15 or voiture_exonerer16 or voiture_exonerer17 or voiture_exonerer18 then
+      Wait(1000)
+      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
       TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
       TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Ceci est un vehicule ~r~d'urgence~s~ \nvous etes exonerer de ~r~contravention~s~")
     end    
 end
-
-
-function RadarAutoroute()
-
-    if kmhspeed >= vitessemaxautoroute and conducteur == player and not voiture_exonerer then
-      TriggerServerEvent('paiement:radarautoroute', prixautoroute)
-      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)  -- Le fichier son est fournis avec la ressource il vous suffit de l'ajouter a votre script qui gere les sons de votre serveur
-      Citizen.Wait(1000)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Contravention de : ~r~ 500~s~ $\nRetrait de : ~r~1~s~ points")
-    else
-      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)  -- Le fichier son est fournis avec la ressource il vous suffit de l'ajouter a votre script qui gere les sons de votre serveur
-      Citizen.Wait(1000)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Ceci est un vehicule ~r~d'urgence~s~ \nvous etes exonerer de ~r~contravention~s~")
+ 
+Citizen.CreateThread(function()
+	for _, item in pairs(radar) do
+		local choixblip = item.blipshow
+		if DrawBlipShow then
+			if choixblip == true then
+    			local blip = AddBlipForCoord(item.x, item.y, item.z)
+        		SetBlipSprite(blip, item.idblip)
+        		SetBlipColour(blip, item.couleurblip)
+        		SetBlipScale(blip, item.tailleblip)
+        		SetBlipFlashes(blip, item.clignotementblip)
+        		SetBlipAsShortRange(blip, false)
+        		BeginTextCommandSetBlipName("STRING")
+        		AddTextComponentString(item.nom)
+        		EndTextCommandSetBlipName(blip)
+        	end
+    	end
     end
-end
-
-function BlipTrue()
-    local blipcentreville = AddBlipForCoord(radarcentreville.Position.x, radarcentreville.Position.y, radarcentreville.Position.z)
-        SetBlipSprite(blipcentreville, 184)
-        SetBlipColour(blipcentreville, 1)
-        SetBlipScale(blipcentreville, 0.6)
-        SetBlipAsShortRange(blipcentreville, true)
-        SetBlipFlashes(item.blip, true)
-        SetBlipDisplay(item.blip, 2)
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString("Radar Fix")
-        EndTextCommandSetBlipName(blipcentreville)
-    local blipautoroute = AddBlipForCoord(radarcentreville.Position.x, radarcentreville.Position.y, radarcentreville.Position.z)
-        SetBlipSprite(blipautoroute, 184)
-        SetBlipColour(blipautoroute, 1)
-        SetBlipScale(blipautoroute, 0.6)
-        SetBlipAsShortRange(blipautoroute, true)
-        SetBlipFlashes(item.blip, true)
-        SetBlipDisplay(item.blip, 2)
-        BeginTextCommandSetBlipName("STRING")
-        AddTextComponentString("Radar Fix")
-        EndTextCommandSetBlipName(blipautoroute)
-end
-
+end)
+ 
 Citizen.CreateThread(function()
   while true do
     Wait(0)
-    for k,v in pairs(radarcentreville) do
+    for _, item in pairs(radar) do
     local player = GetPlayerPed(-1)
     local coords = GetEntityCoords(player, true)
-    if Vdist2(radarcentreville[k].x, radarcentreville[k].y, radarcentreville[k].z, coords["x"], coords["y"], coords["z"]) < 30 then
-        RadarCentreVille()
-        Citizen.Wait(500)
+    local choixmarker = item.markershow
+    if (Vdist(item.x, item.y, item.z, coords["x"], coords["y"], coords["z"]) <= item.distanceactivation) then
+    	vitessemax = item.vitessemax
+    	prixcontravention = item.prixamende
+        Radar()
+        Wait(2500)
     end
-  end
+    	if DrawMarkerShow then
+    		if choixmarker == true then
+      		DrawMarker(item.idmarqueur, item.x, item.y, item.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, item.taille1, item.taille2, item.taille3, item.couleurR, item.couleurG, item.couleurB, item.transparence, 2, 0, 0, 0, 0, 0, 0)
+      	    end
+    	end
+    end
  end
 end)
 
 Citizen.CreateThread(function()
-  while true do
-    Wait(0)
-    for k,v in pairs(radarautoroute) do
-    local player = GetPlayerPed(-1)
-    local coords = GetEntityCoords(player, true)
-    if Vdist2(radarautoroute[k].x, radarautoroute[k].y, radarautoroute[k].z, coords["x"], coords["y"], coords["z"]) < 10 then
-        RadarAutoroute()
-        Citizen.Wait(500)
-    end
+--AddEventHandler('onClientMapStart', function()
+
+RequestModel(1581098148)
+while not HasModelLoaded(1581098148) do
+    Wait(1)
+end
+
+RequestModel(2046537925)
+while not HasModelLoaded(2046537925) do
+  	Wait(1)
+end
+
+RequestModel("prop_cctv_pole_01a")
+while not HasModelLoaded("prop_cctv_pole_01a") do
+    Wait(1)
+end
+
+  if FlicEnVille then
+  	for _, item in pairs(positionsflics) do
+    	flic = CreatePed(item.type, item.hash, item.x, item.y, item.z, item.h, false, false)
+    	PlaceObjectOnGroundProperly(flic)
+    	SetEntityInvincible(flic, true)
+    	SetBlockingOfNonTemporaryEvents(flic, true)
+    	TaskStartScenarioInPlace(flic, "WORLD_HUMAN_BINOCULARS", 0, true)
+    	SetPedCanRagdoll(flic, false)
+    	FreezeEntityPosition(flic, true)
+  	end
   end
- end
-end)
 
-Citizen.CreateThread(function()
-
-  while true do
-    Citizen.Wait(0)
-    if DrawMarkerShow then
-      DrawMarker(0, radarcentreville.Position.x, radarcentreville.Position.y, radarcentreville.Position.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5001, 1.5001, 0.5001, 255, 123, 123, 255, 2, 0, 0, 0, 0, 0, 0)
-      DrawMarker(0, radarautoroute.Position.x, radarautoroute.Position.y, radarautoroute.Position.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.5001, 1.5001, 0.5001, 255, 125, 123, 255, 2, 0, 0, 0, 0, 0, 0)
-    end
+  if VoitureFlicEnville then
+  	for _, item in pairs(positionsvoitureflics) do
+    	voiture = CreateVehicle(item.hash, item.x, item.y, item.z, item.h, false, false)
+    	SetVehicleOnGroundProperly(voiture)
+    	SetEntityInvincible(voiture, true)
+    	SetBlockingOfNonTemporaryEvents(voiture, true)
+    	FreezeEntityPosition(voiture, false)
+    	SetVehicleDoorsLocked(voiture, 2)
+    	SetVehicleSiren(voiture, true)
+  	end
   end
-end)
 
-AddEventHandler("playerSpawned", function()
-    if DrawBlipTradeShow then
-        BlipTrue()
-    end
+  if CameraRadar then
+  	for _, item in pairs(positionsCamera) do
+    	camera = CreateObject(GetHashKey(item.nom), item.x, item.y, item.z, false, true, false)
+        SetObjectTargettable(camera, true)
+    	SetEntityInvincible(camera, true)
+    	SetBlockingOfNonTemporaryEvents(camera, false)
+    	FreezeEntityPosition(camera, true)
+    	SetEntityHeading(camera, item.h)
+  	end
+  end
+
 end)
