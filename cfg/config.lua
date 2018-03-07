@@ -14,6 +14,7 @@
 
 DrawMarkerShow = false
 DrawBlipShow = false
+ServicePublique = true
 FlicEnVille = true
 VoitureFlicEnville = true
 CameraRadar = false
