@@ -55,20 +55,29 @@ function Radar()
   local voiture_exonerer16 = IsVehicleModel(vehicule, police_hash16)
   local voiture_exonerer17 = IsVehicleModel(vehicule, police_hash17)
   local voiture_exonerer18 = IsVehicleModel(vehicule, police_hash18)
- 
-    if kmhspeed >= vitessemax and conducteur == player and not voiture_exonerer1 and not voiture_exonerer2 and not voiture_exonerer3 and not voiture_exonerer4 and not voiture_exonerer5 and not voiture_exonerer6 and not voiture_exonerer7 and not voiture_exonerer8 and not voiture_exonerer9 and not voiture_exonerer10 and not voiture_exonerer11 and not voiture_exonerer12 and not voiture_exonerer13 and not voiture_exonerer14 and not voiture_exonerer15 and not voiture_exonerer16 and not voiture_exonerer17 and not voiture_exonerer18 then
-      TriggerServerEvent('paiement:radar', prixcontravention)
-      Wait(1000)
-      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Contravention de : ~r~"..prixcontravention.."~s~ $\nRetrait de : ~r~1~s~ points")
+    if ServicePublique == true then
+      if kmhspeed >= vitessemax and conducteur == player and not voiture_exonerer1 and not voiture_exonerer2 and not voiture_exonerer3 and not voiture_exonerer4 and not voiture_exonerer5 and not voiture_exonerer6 and not voiture_exonerer7 and not voiture_exonerer8 and not voiture_exonerer9 and not voiture_exonerer10 and not voiture_exonerer11 and not voiture_exonerer12 and not voiture_exonerer13 and not voiture_exonerer14 and not voiture_exonerer15 and not voiture_exonerer16 and not voiture_exonerer17 and not voiture_exonerer18 then
+        TriggerServerEvent('paiement:radar', prixcontravention)
+        Wait(1000)
+        TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
+        TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
+        TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Contravention de : ~r~"..prixcontravention.."~s~ $\nRetrait de : ~r~1~s~ points")
+      end
+        if kmhspeed >= vitessemax and voiture_exonerer1 or voiture_exonerer2 or voiture_exonerer3 or voiture_exonerer4 or voiture_exonerer5 or voiture_exonerer6 or voiture_exonerer7 or voiture_exonerer8 or voiture_exonerer9 or voiture_exonerer10 or voiture_exonerer11 or voiture_exonerer12 or voiture_exonerer13 or voiture_exonerer14 or voiture_exonerer15 or voiture_exonerer16 or voiture_exonerer17 or voiture_exonerer18 then
+          Wait(1000)
+        TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
+        TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
+        TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Ceci est un vehicule ~r~d'urgence~s~ \nvous etes exonerer de ~r~contravention~s~")
+        end
+    else  
+      if kmhspeed >= vitessemax and conducteur == player then
+        TriggerServerEvent('paiement:radar', prixcontravention)
+        Wait(1000)
+        TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
+        TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
+        TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Contravention de : ~r~"..prixcontravention.."~s~ $\nRetrait de : ~r~1~s~ points")
+      end
     end
-    if kmhspeed >= vitessemax and voiture_exonerer1 or voiture_exonerer2 or voiture_exonerer3 or voiture_exonerer4 or voiture_exonerer5 or voiture_exonerer6 or voiture_exonerer7 or voiture_exonerer8 or voiture_exonerer9 or voiture_exonerer10 or voiture_exonerer11 or voiture_exonerer12 or voiture_exonerer13 or voiture_exonerer14 or voiture_exonerer15 or voiture_exonerer16 or voiture_exonerer17 or voiture_exonerer18 then
-      Wait(1000)
-      TriggerEvent("InteractSound_CL:PlayOnOne", "Sonradar", 0.2)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Vitesse enregistrée : ~r~" .. kmhspeed.. "~s~ km/h \nImmatriculation : ~r~"..plaque)
-      TriggerEvent("citizenv:notify", "CHAR_LS_TOURIST_BOARD", 1, "RADAR FIX", false, "Ceci est un vehicule ~r~d'urgence~s~ \nvous etes exonerer de ~r~contravention~s~")
-    end    
 end
  
 Citizen.CreateThread(function()
@@ -94,26 +103,25 @@ Citizen.CreateThread(function()
   while true do
     Wait(0)
     for _, item in pairs(radar) do
-    local player = GetPlayerPed(-1)
-    local coords = GetEntityCoords(player, true)
-    local choixmarker = item.markershow
-    if (Vdist(item.x, item.y, item.z, coords["x"], coords["y"], coords["z"]) <= item.distanceactivation) then
-    	vitessemax = item.vitessemax
-    	prixcontravention = item.prixamende
+      local player = GetPlayerPed(-1)
+      local coords = GetEntityCoords(player, true)
+      local choixmarker = item.markershow
+      if (Vdist(item.x, item.y, item.z, coords["x"], coords["y"], coords["z"]) <= item.distanceactivation) then
+    	  vitessemax = item.vitessemax
+    	  prixcontravention = item.prixamende
         Radar()
         Wait(2500)
-    end
-    	if DrawMarkerShow then
-    		if choixmarker == true then
-      		DrawMarker(item.idmarqueur, item.x, item.y, item.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, item.taille1, item.taille2, item.taille3, item.couleurR, item.couleurG, item.couleurB, item.transparence, 2, 0, 0, 0, 0, 0, 0)
-      	    end
-    	end
+      end
+    	  if DrawMarkerShow then
+    		  if choixmarker == true then
+      		  DrawMarker(item.idmarqueur, item.x, item.y, item.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, item.taille1, item.taille2, item.taille3, item.couleurR, item.couleurG, item.couleurB, item.transparence, 2, 0, 0, 0, 0, 0, 0)
+      	  end
+    	  end
     end
  end
 end)
 
-Citizen.CreateThread(function()
---AddEventHandler('onClientMapStart', function()
+AddEventHandler('onClientMapStart', function()
 
 RequestModel(1581098148)
 while not HasModelLoaded(1581098148) do
